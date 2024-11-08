@@ -15,7 +15,7 @@ In this step, we define the geographic point (longitude, latitude) for the air q
 ```javascript
 var point = ee.Geometry.Point([-73.817694, 40.739264]);
 ```
-point: This line sets a geographic point of interest with latitude and longitude coordinates. In this case, the coordinates [-73.817694, 40.739264] correspond to a location in New York, USA. You can change these values to the coordinates of your own location.
+* point: This line sets a geographic point of interest with latitude and longitude coordinates. In this case, the coordinates [-73.817694, 40.739264] correspond to a location in New York, USA. You can change these values to the coordinates of your own location.
 
 ### 2. Define the Time Range
 
@@ -26,9 +26,9 @@ Next, we define the time period during which we want to analyze the NO₂ data. 
 var startDate = ee.Date('2018-07-01'); // Sentinel-5P TROPOMI data starts from July 2018
 var endDate = ee.Date(new Date()); // up to the current date
 ```
-startDate: We specify the start date for data collection. In this case, July 1, 2018.
+* startDate: We specify the start date for data collection. In this case, July 1, 2018.
 
-endDate: The end date is set to the current date (new Date()), meaning the most recent available data will be included.
+* endDate: The end date is set to the current date (new Date()), meaning the most recent available data will be included.
 
 3. Load the Sentinel-5P NO₂ Data
 
@@ -40,11 +40,11 @@ var collection = ee.ImageCollection('COPERNICUS/S5P/NRTI/L3_NO2')
   .filterDate(startDate, endDate)
   .filterBounds(point);
 ```
-select('NO2_column_number_density'): This filters the dataset to include only the NO₂ column density band, which measures NO₂ concentration in the vertical column of the atmosphere (mol/m²).
+* select('NO2_column_number_density'): This filters the dataset to include only the NO₂ column density band, which measures NO₂ concentration in the vertical column of the atmosphere (mol/m²).
 
-filterDate(startDate, endDate): Limits the data to the defined time range from startDate to endDate.
+* filterDate(startDate, endDate): Limits the data to the defined time range from startDate to endDate.
 
-filterBounds(point): Focuses the data on the geographic area around the defined point of interest.
+* filterBounds(point): Focuses the data on the geographic area around the defined point of interest.
 
 4. Create a Time Series Chart of NO₂ Column Density
 
@@ -58,13 +58,13 @@ var chart = ui.Chart.image.series({
   scale: 1000 // Adjust scale if necessary for the specific area
 });
 ```
-imageCollection: Specifies the source of the data, which is the NO₂ dataset filtered earlier.
+* imageCollection: Specifies the source of the data, which is the NO₂ dataset filtered earlier.
 
-region: Limits the data to the defined geographic point.
+* region: Limits the data to the defined geographic point.
 
-reducer: Uses ee.Reducer.mean() to calculate the average NO₂ column density for each image in the collection.
+* reducer: Uses ee.Reducer.mean() to calculate the average NO₂ column density for each image in the collection.
 
-scale: Defines the spatial resolution (in meters) used to aggregate the data. You can adjust the scale depending on the area you're analyzing.
+* scale: Defines the spatial resolution (in meters) used to aggregate the data. You can adjust the scale depending on the area you're analyzing.
 
 5. Set Chart Options
 
@@ -78,13 +78,13 @@ chart.setOptions({
   pointSize: 3,
 });
 ```
-title: Specifies the title of the chart.
+* title: Specifies the title of the chart.
     
-vAxis and hAxis: These define the axis labels for NO₂ column density (mol/m²) and date, respectively.
+* vAxis and hAxis: These define the axis labels for NO₂ column density (mol/m²) and date, respectively.
 
-lineWidth: Controls the width of the line in the chart.
+* lineWidth: Controls the width of the line in the chart.
     
-pointSize: Adjusts the size of the data points for better visibility.
+* pointSize: Adjusts the size of the data points for better visibility.
 
 6. Display the Chart in the Console
 
@@ -93,22 +93,26 @@ Finally, we display the generated time series chart in the Google Earth Engine c
 
 print(chart);
 ```
-print(chart): Outputs the chart to the console, where you can visualize the NO₂ column density trend over time at the specified location.
+* print(chart): Outputs the chart to the console, where you can visualize the NO₂ column density trend over time at the specified location.
 
 Summary
 
 The StationAirTrack tool allows users to visualize NO₂ pollution trends over time at specific geographic locations. Using Sentinel-5P TROPOMI data in Google Earth Engine, it generates a time series chart that shows the average NO₂ column density at the selected point of interest. This is helpful for monitoring air pollution and understanding environmental changes at different locations.
 Repository Structure
 
+```javascript
 StationAirTrack/
   ├── README.md
   ├── NO2_Tracking_Code.js
   ├── examples/
       └── sample_output_chart.png
+```
 
-    README.md: The documentation explaining the usage and functionality of the tool.
-    NO2_Tracking_Code.js: The full Google Earth Engine code for tracking NO₂ pollution.
-    examples/sample_output_chart.png: A sample output chart demonstrating the tool's capabilities.
+* README.md: The documentation explaining the usage and functionality of the tool.
+
+* NO2_Tracking_Code.js: The full Google Earth Engine code for tracking NO₂ pollution.
+
+* examples/sample_output_chart.png: A sample output chart demonstrating the tool's capabilities.
 
 By following this structure, the StationAirTrack tool allows for easy tracking and visualization of NO₂ pollution trends, helping researchers and environmental scientists better understand air quality dynamics at specific locations.
 
